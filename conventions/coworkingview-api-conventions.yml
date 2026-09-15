@@ -1,0 +1,61 @@
+name: CoworkingView API Conventions
+description: >-
+  Cross-cutting runtime semantics for the CoworkingView /v1 REST API: auth style, idempotency on the write
+  paths, pagination, error envelope, versioning, localisation and currency, and reversibility of the one
+  write surface (lead submission).
+generated: '2026-09-15'
+method: derived
+source: >-
+  Derived from openapi/coworkingview-api-openapi.json (15 operations) and the provider docs
+  (https://coworkingview.com/auth.md, https://coworkingview.com/llms.txt, https://coworkingview.com/en/mcp).
+auth:
+  style: none-for-reads
+  detail: See authentication/coworkingview-api-authentication.yml. Reads are open; writes require a Turnstile challenge token, not a credential.
+idempotency:
+  coverage: full
+  mechanism: Idempotency-Key request header
+  detail: >-
+    Both write operations (POST /v1/leads/inquiry, POST /v1/leads/contact) accept an Idempotency-Key header (any
+    unique string, e.g. a UUID per logical submission). A retried request with the SAME key and body replays the
+    original response instead of creating a second lead; the SAME key with a DIFFERENT body returns 422 with code
+    IDEMPOTENCY_KEY_CONFLICT (an enumerated ProblemDetails code). The mutating surface is exactly these two lead
+    endpoints and both carry the mechanism, so coverage is full.
+  scope: [inquiry, contact]
+pagination:
+  style: page-number
+  params: [page, pageSize, seed]
+  detail: GET /v1/properties is paged with page + pageSize; `seed` stabilises randomised ordering across pages. The MCP search tool exposes an opaque `cursor` over the same surface.
+error_envelope:
+  format: rfc9457
+  media_type: application/problem+json
+  detail: All 4xx/5xx responses are RFC 9457 Problem Details with an enumerated `code`, optional field-level `errors[]` and a `traceId`. See errors/coworkingview-api-problem-types.yml.
+request_tracing:
+  field: traceId
+  detail: Every ProblemDetails body carries a traceId for support correlation.
+versioning:
+  scheme: uri-path-major
+  current: v1
+  policy: >-
+    Within a major version the contract is append-only (fields added, never removed or retyped) because clients
+    include mobile builds that cannot be recalled. A breaking change means /v2, with /v1 kept alive for at least
+    two app releases. See lifecycle/coworkingview-api-lifecycle.yml.
+localisation:
+  locale_param: locale
+  supported: [en, de, es]
+  detail: locale is required on most reads; names/descriptions are returned in the requested language.
+currency:
+  param: currency
+  detail: Prices are operator-published in each space's own currency; a `currency` filter/normalisation param is available on search and market rates.
+rate_limiting:
+  detail: Rate-limited per IP; exhaustion returns 429 with code RATE_LIMITED. Response headers are not documented. See rate-limits/coworkingview-api-rate-limits.yml.
+reversibility:
+  applies_to: writes
+  grade: na
+  detail: >-
+    The only write surface is lead submission: POST /v1/leads/inquiry and /v1/leads/contact forward an enquiry
+    to the chosen operator. This creates no booking, reservation, payment or persisted mutable resource that a
+    caller can cancel, refund or delete — CoworkingView explicitly holds no availability and books nothing, and
+    the contract is concluded directly between the searcher and the operator. There is therefore no reversal
+    operation to document, and none is expected; idempotency (above) is what protects a retried submission. If a
+    submitted enquiry must be withdrawn, that is handled out of band with the operator, not through the API.
+  dry_run_mode: na

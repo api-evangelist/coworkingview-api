@@ -1,0 +1,15 @@
+name: CoworkingView Sandbox
+description: >-
+  CoworkingView publishes no separate sandbox environment and no test keys — production doubles as sandbox.
+  Because reads require no authentication and no API key, an agent can exercise the full read surface directly
+  against production with zero setup. The only guarded surface is the lead write path (Turnstile challenge).
+generated: '2026-09-15'
+method: searched
+source: apis.yml ("production doubles as sandbox") and https://coworkingview.com/en/mcp / auth.md (fetched 2026-09-15).
+model: production-is-sandbox
+test_credentials: none
+detail: >-
+  No test-vs-live key prefixes, test cards, test clocks or fixture tooling exist because there is no payment
+  surface and no authentication. Reads are safe to call against production (idempotent, read-only). The lead
+  write endpoints require a real Turnstile challengeToken, so exercising them end-to-end needs a browser
+  challenge; the OpenAPI documents an Idempotency-Key to make retries safe.

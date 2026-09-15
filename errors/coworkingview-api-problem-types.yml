@@ -1,0 +1,61 @@
+name: CoworkingView Problem Types
+description: >-
+  RFC 9457 problem catalogue for the CoworkingView /v1 API. Every 4xx/5xx response is
+  application/problem+json using a single ProblemDetails schema with an enumerated `code`.
+generated: '2026-09-15'
+method: derived
+source: >-
+  Derived from openapi/coworkingview-api-openapi.json — components.schemas.ProblemDetails (code enum) and the
+  per-operation 4xx/5xx responses, all typed application/problem+json.
+format: rfc9457
+media_type: application/problem+json
+envelope:
+  required: [type, title, status, code]
+  fields:
+    - name: type
+      note: URI reference identifying the problem type.
+    - name: title
+      note: Short human-readable summary.
+    - name: status
+      note: HTTP status code (400-599).
+    - name: code
+      note: Machine-readable enumerated code (see problem_types).
+    - name: detail
+      note: Human-readable explanation of this occurrence.
+    - name: errors
+      note: Optional array of { path, message } for field-level validation failures.
+    - name: traceId
+      note: Correlation id for support.
+problem_types:
+  - code: VALIDATION_FAILED
+    http_status: [400, 422]
+    title: Request validation failed
+    remediation: Fix the parameters/body fields named in errors[].path and retry.
+  - code: NOT_FOUND
+    http_status: [404]
+    title: Resource not found
+    remediation: The slug (property, operator, place) does not exist; resolve it via search/suggest first.
+  - code: RATE_LIMITED
+    http_status: [429]
+    title: Rate limit exceeded
+    remediation: Back off and retry; limits are per IP.
+  - code: CHALLENGE_FAILED
+    http_status: [403]
+    title: Turnstile challenge missing or invalid
+    remediation: Supply a valid Cloudflare Turnstile challengeToken on lead writes.
+  - code: UPSTREAM_UNAVAILABLE
+    http_status: [502]
+    title: Upstream dependency unavailable
+    remediation: Transient; retry with backoff.
+  - code: INTERNAL_ERROR
+    http_status: [500]
+    title: Internal server error
+    remediation: Transient; retry, then contact support with traceId if it persists.
+  - code: CLIENT_TOO_OLD
+    http_status: [400]
+    title: Client build below minimum supported version
+    remediation: Official mobile clients only; upgrade to the minimum build from GET /v1/config.
+  - code: IDEMPOTENCY_KEY_CONFLICT
+    http_status: [422]
+    title: Idempotency key reused with a different body
+    remediation: Reuse the same Idempotency-Key only with an identical body, or use a fresh key.

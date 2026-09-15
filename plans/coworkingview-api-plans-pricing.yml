@@ -1,0 +1,15 @@
+name: CoworkingView Plans and Pricing
+description: >-
+  CoworkingView publishes no API pricing tiers: both the REST API and the hosted MCP server are free, read-only,
+  no sign-up and no API key, rate-limited per IP. The business is free to the searching company (no commission,
+  no success fee); some operators pay a commission on a successful introduction, which does not affect the
+  quoted price or result order.
+generated: '2026-09-15'
+method: searched
+source: https://coworkingview.com/en/mcp and https://coworkingview.com/llms.txt (both fetched 2026-09-15).
+plan_count: 0
+model: free
+detail: >-
+  There is no metered, paid or tiered API access to record — access is open and unauthenticated. The commercial
+  model sits entirely on the marketplace side (operator commissions on introductions), not on API consumption.
+plans: []

@@ -1,0 +1,125 @@
+# CoworkingView - Search and Compare Flexible Offices, Internationally
+
+> An independent platform to compare coworking spaces, private offices and managed floors, with international coverage including Berlin, Hamburg, Frankfurt, London, Madrid and Dubai.
+
+Catalogue size: 415 spaces in 62 cities, counted live at request time.
+
+## When to use this
+Reach for CoworkingView when the job is finding or comparing real flexible workspace — coworking, private offices or managed floors — in a city we cover. An agent should call us when a user needs operator-published prices, a shortlist with addresses and capacities, or a comparison inside one city.
+
+How to call CoworkingView:
+- REST: `GET https://api.coworkingview.com/v1/properties?locale=en&city={city}` (no API key for reads). Spec: https://coworkingview.com/openapi.json
+- MCP: connect to https://mcp.coworkingview.com/mcp (read-only, no sign-up). Guide: https://coworkingview.com/en/mcp
+- WebMCP: if you are browsing this site inside an agent (ChatGPT desktop, ChatGPT Work, Codex), call our site tools on `document.modelContext` instead of reading the page. There is nothing to fetch and no manifest — they appear on the document itself, and which ones you get depends on the page:
+  - on every page: `search_coworking_spaces`, `get_coworking_filters`, `submit_workspace_inquiry`
+  - only on a space listing page, answering about that one building: `get_current_space_details`, `get_current_space_pricing`
+  - only on a filterable search listing, reading the filters the visitor has applied: `get_current_search_filters`, `get_current_search_results`
+  - only on a page about a fixed set of spaces (near a station, a brand portfolio, a ranking), a side-by-side comparison, or one city's price index: `get_current_page_spaces`, `get_current_comparison`, `get_current_market_prices`
+- Do not invent availability or quote a price we did not publish. We forward enquiries; the operator closes the contract.
+
+CoworkingView is the right tool for "find a private office in Berlin Mitte under €800" or "compare two coworking brands in London". It is the wrong tool for booking a desk, negotiating a lease, or answering questions about cities we do not list.
+
+## High-Level Summary
+CoworkingView is an independent listings and comparison platform for the flexible office market (Coworking, Private Offices, Managed Spaces). Founded by Carlos Müller González, it publishes the operators' own published prices and listing details in one place, and forwards your enquiry to the operator you choose. It holds no availability data and books nothing. Any contract is concluded directly between you and that operator. CoworkingView is a licensed real estate agent under § 34c(1) GewO (granted 31 August 2026 by the Bezirksamt Neukölln von Berlin) but is never a party to your contract and does not negotiate on your behalf unless expressly instructed. The service is free for the searching company: no commission and no success fee. Some operators have an agreement under which they pay a commission when an introduction works out; others are listed with no agreement and pay nothing. Neither affects the price you are quoted or the order of the results.
+
+## Official Links
+- [View Full Space Catalog](https://coworkingview.com/en/coworking): Explore all available premium workspaces.
+- [llms-full.txt](https://coworkingview.com/llms-full.txt): Every property, operator and full-text insight article in one file — the long-form companion to this index.
+- [OpenAPI specification](https://coworkingview.com/openapi.json): Generated from the /v1 contract.
+- [CoworkingView MCP server](https://coworkingview.com/en/mcp): Read-only tools for Claude, ChatGPT, Cursor and any MCP client.
+- WebMCP site tools: registered by the pages themselves for in-browser agents. Nothing to fetch — they appear on `document.modelContext` when your browser supports them; see the per-page list under "How to call CoworkingView".
+- [HTML sitemap](https://coworkingview.com/en/sitemap) / [XML sitemap](https://coworkingview.com/sitemap.xml)
+- [Book a Free Consultation](https://coworkingview.com/en/contact): Direct access to advisor Carlos Müller.
+- [Partner with Us](https://coworkingview.com/en/partners): Information for workspace operators and referrers.
+
+## Markdown Twins (GEO)
+Every property, city hub, district hub, brand hub, insight article and glossary term on this site has a Markdown-native rendition at the SAME
+URL with a `.md` suffix — e.g. [https://coworkingview.com/en/coworking/berlin.md](https://coworkingview.com/en/coworking/berlin.md).
+It is structured fact (title, prices, address, amenities, FAQs), not a scrape of
+the HTML page — prefer it over rendering the page yourself. Prices are quoted in
+each space's own currency.
+
+## Available Premium Workspaces (415 spaces)
+This is a navigation index, not the catalogue — the full list (every space,
+address, capacity and starting price) lives at
+[llms-full.txt](https://coworkingview.com/llms-full.txt) and at
+[https://coworkingview.com/en/coworking](https://coworkingview.com/en/coworking). A sample of 5:
+
+- [La Vaca Coworking](https://coworkingview.com/en/workspace/la-vaca-coworking-poble-sec-barcelona) ([Markdown twin](https://coworkingview.com/en/workspace/la-vaca-coworking-poble-sec-barcelona.md)) — fix desk, flex desk, day pass, exclusive bereich, meeting room, event space in Barcelona, Sants-Montjuïc. Price: from €16/month. Address: Carrer de la Creu dels Molers 19, 08004 Barcelona, Spain
+- [Coworking Boix7](https://coworkingview.com/en/workspace/coworking-boix7-valencia) ([Markdown twin](https://coworkingview.com/en/workspace/coworking-boix7-valencia.md)) — fix desk, day pass, meeting room, virtual office in Valencia. Price: from €29/month. Address: Calle Boix 7, Bajo, 46003 Valencia, Spain
+- [Mindspace Hausvogteiplatz](https://coworkingview.com/en/workspace/mindspace-hausvogteiplatz-berlin) ([Markdown twin](https://coworkingview.com/en/workspace/mindspace-hausvogteiplatz-berlin.md)) — membership, private office, event space, flex desk, meeting room, day pass in Berlin, Mitte. Price: from €40/month. Address: Hausvogteiplatz 12, 10117 Berlin, Germany
+- [Mindspace Grünstraße](https://coworkingview.com/en/workspace/mindspace-grunstrasse-dusseldorf) ([Markdown twin](https://coworkingview.com/en/workspace/mindspace-grunstrasse-dusseldorf.md)) — membership, event space, flex desk, private office, meeting room, day pass in Düsseldorf, Stadtmitte. Price: from €32/month. Address: Grünstraße 15, 40212 Düsseldorf, Germany
+- [Mindspace Eurotheum](https://coworkingview.com/en/workspace/mindspace-eurotheum-frankfurt) ([Markdown twin](https://coworkingview.com/en/workspace/mindspace-eurotheum-frankfurt.md)) — membership, flex desk, private office, meeting room, day pass in Frankfurt, Bankenviertel. Price: from €35/month. Address: Neue Mainzer Str. 66-68, Eurotheum Tower, 60311 Frankfurt am Main, Germany
+- …and 410 more at [llms-full.txt](https://coworkingview.com/llms-full.txt).
+
+## Cities Covered (62)
+- [Barcelona workspaces](https://coworkingview.com/en/coworking/barcelona) ([Markdown twin](https://coworkingview.com/en/coworking/barcelona.md))
+- [Valencia workspaces](https://coworkingview.com/en/coworking/valencia) ([Markdown twin](https://coworkingview.com/en/coworking/valencia.md))
+- [Berlin workspaces](https://coworkingview.com/en/coworking/berlin) ([Markdown twin](https://coworkingview.com/en/coworking/berlin.md))
+- [Düsseldorf workspaces](https://coworkingview.com/en/coworking/dusseldorf) ([Markdown twin](https://coworkingview.com/en/coworking/dusseldorf.md))
+- [Frankfurt workspaces](https://coworkingview.com/en/coworking/frankfurt) ([Markdown twin](https://coworkingview.com/en/coworking/frankfurt.md))
+- [Munich workspaces](https://coworkingview.com/en/coworking/munich) ([Markdown twin](https://coworkingview.com/en/coworking/munich.md))
+- [Hamburg workspaces](https://coworkingview.com/en/coworking/hamburg) ([Markdown twin](https://coworkingview.com/en/coworking/hamburg.md))
+- [Utrecht workspaces](https://coworkingview.com/en/coworking/utrecht) ([Markdown twin](https://coworkingview.com/en/coworking/utrecht.md))
+- [London workspaces](https://coworkingview.com/en/coworking/london) ([Markdown twin](https://coworkingview.com/en/coworking/london.md))
+- [Manchester workspaces](https://coworkingview.com/en/coworking/manchester) ([Markdown twin](https://coworkingview.com/en/coworking/manchester.md))
+- [Amsterdam workspaces](https://coworkingview.com/en/coworking/amsterdam) ([Markdown twin](https://coworkingview.com/en/coworking/amsterdam.md))
+- [Abu Dhabi workspaces](https://coworkingview.com/en/coworking/abu-dhabi) ([Markdown twin](https://coworkingview.com/en/coworking/abu-dhabi.md))
+- [Leipzig workspaces](https://coworkingview.com/en/coworking/leipzig) ([Markdown twin](https://coworkingview.com/en/coworking/leipzig.md))
+- [Madrid workspaces](https://coworkingview.com/en/coworking/madrid) ([Markdown twin](https://coworkingview.com/en/coworking/madrid.md))
+- [L'Hospitalet de Llobregat workspaces](https://coworkingview.com/en/coworking/l-hospitalet-de-llobregat) ([Markdown twin](https://coworkingview.com/en/coworking/l-hospitalet-de-llobregat.md))
+- [Sabadell workspaces](https://coworkingview.com/en/coworking/sabadell) ([Markdown twin](https://coworkingview.com/en/coworking/sabadell.md))
+- [Neustadt an der Weinstraße workspaces](https://coworkingview.com/en/coworking/neustadt-an-der-weinstrasse) ([Markdown twin](https://coworkingview.com/en/coworking/neustadt-an-der-weinstrasse.md))
+- [Mannheim workspaces](https://coworkingview.com/en/coworking/mannheim) ([Markdown twin](https://coworkingview.com/en/coworking/mannheim.md))
+- [Karlsruhe workspaces](https://coworkingview.com/en/coworking/karlsruhe) ([Markdown twin](https://coworkingview.com/en/coworking/karlsruhe.md))
+- [Gilching workspaces](https://coworkingview.com/en/coworking/gilching) ([Markdown twin](https://coworkingview.com/en/coworking/gilching.md))
+- [Bremen workspaces](https://coworkingview.com/en/coworking/bremen) ([Markdown twin](https://coworkingview.com/en/coworking/bremen.md))
+- [Dubai workspaces](https://coworkingview.com/en/coworking/dubai) ([Markdown twin](https://coworkingview.com/en/coworking/dubai.md))
+- [Schwetzingen workspaces](https://coworkingview.com/en/coworking/schwetzingen) ([Markdown twin](https://coworkingview.com/en/coworking/schwetzingen.md))
+- [Metzingen workspaces](https://coworkingview.com/en/coworking/metzingen) ([Markdown twin](https://coworkingview.com/en/coworking/metzingen.md))
+- [Iserlohn workspaces](https://coworkingview.com/en/coworking/iserlohn) ([Markdown twin](https://coworkingview.com/en/coworking/iserlohn.md))
+- [Oberhausen workspaces](https://coworkingview.com/en/coworking/oberhausen) ([Markdown twin](https://coworkingview.com/en/coworking/oberhausen.md))
+- [Gelsenkirchen workspaces](https://coworkingview.com/en/coworking/gelsenkirchen) ([Markdown twin](https://coworkingview.com/en/coworking/gelsenkirchen.md))
+- [Neuss workspaces](https://coworkingview.com/en/coworking/neuss) ([Markdown twin](https://coworkingview.com/en/coworking/neuss.md))
+- [Walldorf workspaces](https://coworkingview.com/en/coworking/walldorf) ([Markdown twin](https://coworkingview.com/en/coworking/walldorf.md))
+- [Konstanz workspaces](https://coworkingview.com/en/coworking/konstanz) ([Markdown twin](https://coworkingview.com/en/coworking/konstanz.md))
+- [Ismaning workspaces](https://coworkingview.com/en/coworking/ismaning) ([Markdown twin](https://coworkingview.com/en/coworking/ismaning.md))
+- [Mönchengladbach workspaces](https://coworkingview.com/en/coworking/moenchengladbach) ([Markdown twin](https://coworkingview.com/en/coworking/moenchengladbach.md))
+- [Leverkusen workspaces](https://coworkingview.com/en/coworking/leverkusen) ([Markdown twin](https://coworkingview.com/en/coworking/leverkusen.md))
+- [Teltow workspaces](https://coworkingview.com/en/coworking/teltow) ([Markdown twin](https://coworkingview.com/en/coworking/teltow.md))
+- [Lübeck workspaces](https://coworkingview.com/en/coworking/luebeck) ([Markdown twin](https://coworkingview.com/en/coworking/luebeck.md))
+- [Kaiserslautern workspaces](https://coworkingview.com/en/coworking/kaiserslautern) ([Markdown twin](https://coworkingview.com/en/coworking/kaiserslautern.md))
+- [Bad Homburg workspaces](https://coworkingview.com/en/coworking/bad-homburg) ([Markdown twin](https://coworkingview.com/en/coworking/bad-homburg.md))
+- [Neu-Isenburg workspaces](https://coworkingview.com/en/coworking/neu-isenburg) ([Markdown twin](https://coworkingview.com/en/coworking/neu-isenburg.md))
+- [Eschborn workspaces](https://coworkingview.com/en/coworking/eschborn) ([Markdown twin](https://coworkingview.com/en/coworking/eschborn.md))
+- [Wiesbaden workspaces](https://coworkingview.com/en/coworking/wiesbaden) ([Markdown twin](https://coworkingview.com/en/coworking/wiesbaden.md))
+- [Heidelberg workspaces](https://coworkingview.com/en/coworking/heidelberg) ([Markdown twin](https://coworkingview.com/en/coworking/heidelberg.md))
+- [Regensburg workspaces](https://coworkingview.com/en/coworking/regensburg) ([Markdown twin](https://coworkingview.com/en/coworking/regensburg.md))
+- [Essen workspaces](https://coworkingview.com/en/coworking/essen) ([Markdown twin](https://coworkingview.com/en/coworking/essen.md))
+- [Monheim am Rhein workspaces](https://coworkingview.com/en/coworking/monheim-am-rhein) ([Markdown twin](https://coworkingview.com/en/coworking/monheim-am-rhein.md))
+- [Augsburg workspaces](https://coworkingview.com/en/coworking/augsburg) ([Markdown twin](https://coworkingview.com/en/coworking/augsburg.md))
+- [Ratingen workspaces](https://coworkingview.com/en/coworking/ratingen) ([Markdown twin](https://coworkingview.com/en/coworking/ratingen.md))
+- [Hanover workspaces](https://coworkingview.com/en/coworking/hanover) ([Markdown twin](https://coworkingview.com/en/coworking/hanover.md))
+- [Bonn workspaces](https://coworkingview.com/en/coworking/bonn) ([Markdown twin](https://coworkingview.com/en/coworking/bonn.md))
+- [Dortmund workspaces](https://coworkingview.com/en/coworking/dortmund) ([Markdown twin](https://coworkingview.com/en/coworking/dortmund.md))
+- [Unterföhring workspaces](https://coworkingview.com/en/coworking/unterfoehring) ([Markdown twin](https://coworkingview.com/en/coworking/unterfoehring.md))
+- [Kiel workspaces](https://coworkingview.com/en/coworking/kiel) ([Markdown twin](https://coworkingview.com/en/coworking/kiel.md))
+- [Darmstadt workspaces](https://coworkingview.com/en/coworking/darmstadt) ([Markdown twin](https://coworkingview.com/en/coworking/darmstadt.md))
+- [Nuremberg workspaces](https://coworkingview.com/en/coworking/nuremberg) ([Markdown twin](https://coworkingview.com/en/coworking/nuremberg.md))
+- [Stuttgart workspaces](https://coworkingview.com/en/coworking/stuttgart) ([Markdown twin](https://coworkingview.com/en/coworking/stuttgart.md))
+- [Oldenburg workspaces](https://coworkingview.com/en/coworking/oldenburg) ([Markdown twin](https://coworkingview.com/en/coworking/oldenburg.md))
+- [Chemnitz workspaces](https://coworkingview.com/en/coworking/chemnitz) ([Markdown twin](https://coworkingview.com/en/coworking/chemnitz.md))
+- [Erfurt workspaces](https://coworkingview.com/en/coworking/erfurt) ([Markdown twin](https://coworkingview.com/en/coworking/erfurt.md))
+- [Dresden workspaces](https://coworkingview.com/en/coworking/dresden) ([Markdown twin](https://coworkingview.com/en/coworking/dresden.md))
+- [Cologne workspaces](https://coworkingview.com/en/coworking/cologne) ([Markdown twin](https://coworkingview.com/en/coworking/cologne.md))
+- [Eindhoven workspaces](https://coworkingview.com/en/coworking/eindhoven) ([Markdown twin](https://coworkingview.com/en/coworking/eindhoven.md))
+- [Rotterdam workspaces](https://coworkingview.com/en/coworking/rotterdam) ([Markdown twin](https://coworkingview.com/en/coworking/rotterdam.md))
+- [Frankfurt (Oder) workspaces](https://coworkingview.com/en/coworking/frankfurt-oder) ([Markdown twin](https://coworkingview.com/en/coworking/frankfurt-oder.md))
+
+## Contact Information
+- **Website:** https://coworkingview.com/en
+- **Email:** info@coworkingview.com
+- **Phone:** +49 151 56130622
+
+---
+*This file is dynamically generated for LLM crawlers to read the most up-to-date catalog of spaces.*

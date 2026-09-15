@@ -1,0 +1,89 @@
+name: CoworkingView Tool Crosswalk
+description: >-
+  Binds each of the 10 CoworkingView MCP tools to the backing OpenAPI /v1 operation(s) that supply its real
+  parameters and response shape. Both surfaces are live and public; the MCP tool schemas were read from a
+  successful tools/list, so bindings are high confidence where a tool maps 1:1 to a REST operation.
+generated: '2026-09-15'
+method: derived
+source: >-
+  Derived by matching mcp/coworkingview-api-mcp-tools-raw.json (probed 2026-09-15) against
+  openapi/coworkingview-api-openapi.json (15 operations). Names and semantics align closely; where a tool
+  composes several reads (compare) the binding is marked composite.
+surfaces:
+  openapi: openapi/coworkingview-api-openapi.json
+  openapi_base: https://api.coworkingview.com
+  mcp: https://mcp.coworkingview.com/mcp
+  mcp_gated: false
+crosswalk:
+  - tool: list_coworking_locations
+    category: discovery
+    rest: [geoBootstrap]
+    binding: direct
+    confidence: high
+    note: Both surface the country/city/zone slug tree with space counts.
+  - tool: resolve_coworking_query
+    category: discovery
+    rest: [searchSuggest]
+    binding: direct
+    confidence: high
+  - tool: get_coworking_filter_options
+    category: discovery
+    rest: [facets]
+    binding: direct
+    confidence: high
+  - tool: search_coworking_spaces
+    category: search
+    rest: [listProperties]
+    binding: direct
+    confidence: high
+    note: MCP `cursor` maps to REST page/pageSize; amenities/geo/price filters align.
+  - tool: get_coworking_space
+    category: read
+    rest: [propertyDetail]
+    binding: direct
+    confidence: high
+  - tool: compare_coworking_spaces
+    category: read
+    rest: [propertyDetail]
+    binding: composite
+    confidence: medium
+    note: Fans out over propertyDetail for each slug in `slugs`; no single REST compare operation.
+  - tool: get_coworking_market_rates
+    category: analytics
+    rest: [marketRates]
+    binding: direct
+    confidence: high
+  - tool: get_best_coworking
+    category: analytics
+    rest: [rankings]
+    binding: direct
+    confidence: high
+  - tool: get_coworking_operator
+    category: read
+    rest: [operatorProfile]
+    binding: direct
+    confidence: high
+  - tool: get_coworking_place_guide
+    category: read
+    rest: [placeProfile]
+    binding: direct
+    confidence: high
+mcp_only: []
+rest_only:
+  - operation: mapProperties
+    reason: Map-clustered variant of property search; MCP search_coworking_spaces covers the query need.
+  - operation: config
+    reason: Remote config / feature flags for official mobile clients; not an agent surface.
+  - operation: health
+    reason: Liveness probe; no MCP tool.
+  - operation: inquiry
+    reason: Lead write path (POST /v1/leads/inquiry); the MCP server is read-only, so no tool exposes it.
+  - operation: contact
+    reason: General contact write path (POST /v1/leads/contact); read-only MCP server exposes no write tool.
+coverage:
+  mcp_tools: 10
+  mcp_tools_bound: 10
+  rest_operations: 15
+  rest_bound: 10
+  rest_only: 5
+  mcp_only: 0

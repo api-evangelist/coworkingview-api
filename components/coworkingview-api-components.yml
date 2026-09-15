@@ -1,0 +1,38 @@
+name: CoworkingView WebMCP Site Tools
+description: >-
+  In-browser WebMCP tools CoworkingView registers on document.modelContext for agents browsing the site
+  (ChatGPT desktop/Work, Codex and other in-page agents). These are distinct from the hosted remote MCP server:
+  there is no manifest and nothing to fetch — the tools appear on the document itself, and which are present
+  depends on the page type. Documented in the provider's llms.txt.
+generated: '2026-09-15'
+method: searched
+source: https://coworkingview.com/llms.txt (section "WebMCP", fetched 2026-09-15).
+surface: webmcp
+runtime: document.modelContext
+manifest: none
+families:
+  - family: global
+    scope: Present on every page.
+    tools:
+      - search_coworking_spaces
+      - get_coworking_filters
+      - submit_workspace_inquiry
+  - family: space-listing
+    scope: Only on a single space listing page; answers about that one building.
+    tools:
+      - get_current_space_details
+      - get_current_space_pricing
+  - family: search-listing
+    scope: Only on a filterable search listing; reads the filters the visitor has applied.
+    tools:
+      - get_current_search_filters
+      - get_current_search_results
+  - family: fixed-set
+    scope: Only on a page about a fixed set of spaces (station area, brand portfolio, ranking), a side-by-side comparison, or one city's price index.
+    tools:
+      - get_current_page_spaces
+      - get_current_comparison
+      - get_current_market_prices
+note: >-
+  submit_workspace_inquiry is the only write among the WebMCP tools and mirrors the REST lead path
+  (POST /v1/leads/inquiry). All others are read-only, page-context reads.

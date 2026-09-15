@@ -1,0 +1,35 @@
+overlay: 1.0.0
+info:
+  title: CoworkingView API Evangelist enrichment overlay
+  version: 1.0.0
+extends: ../openapi/coworkingview-api-openapi.json
+actions:
+  - target: $.info
+    description: Record enrichment provenance and the discovery surfaces confirmed live on 2026-09-15.
+    update:
+      x-apievangelist:
+        enriched: '2026-09-15'
+        method: derived
+        discovery:
+          openapi: https://coworkingview.com/openapi.json
+          mcp: https://mcp.coworkingview.com/mcp
+          llms_txt: https://coworkingview.com/llms.txt
+          api_catalog: https://coworkingview.com/.well-known/api-catalog
+          auth_skill: https://coworkingview.com/auth.md
+        notes: >-
+          Reads are unauthenticated; two lead write paths gated by a Cloudflare Turnstile challenge and
+          protected for retries by an Idempotency-Key header (full coverage across the write surface).
+  - target: $.paths['/v1/leads/inquiry'].post
+    description: Flag full idempotency coverage on the primary write.
+    update:
+      x-idempotency:
+        header: Idempotency-Key
+        coverage: full
+        conflict_code: IDEMPOTENCY_KEY_CONFLICT
+  - target: $.paths['/v1/leads/contact'].post
+    description: Flag idempotency on the general contact write.
+    update:
+      x-idempotency:
+        header: Idempotency-Key
+        coverage: full
+        conflict_code: IDEMPOTENCY_KEY_CONFLICT

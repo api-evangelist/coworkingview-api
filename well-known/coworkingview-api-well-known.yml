@@ -1,0 +1,71 @@
+name: CoworkingView Well-Known Documents
+description: >-
+  Well-known discovery probe across every host in the record. coworkingview.com serves four real documents:
+  an RFC 9727 api-catalog linkset, an RFC 9728 oauth-protected-resource, and OAuth/OIDC metadata that
+  honestly declare no OAuth flow (empty grant_types/scopes) and point agents at an auth.md skill instead.
+generated: '2026-09-15'
+method: probed
+source: Direct GET of each /.well-known/* path on 2026-09-15 with a browser User-Agent; bodies saved verbatim and confirmed to parse as JSON documents (not SPA shells).
+hosts:
+  - host: coworkingview.com
+    documents:
+      - path: /.well-known/api-catalog
+        status: 200
+        content_type: application/linkset+json;profile="https://www.rfc-editor.org/info/rfc9727"
+        file: coworkingview-api-api-catalog.json
+        note: RFC 9727 linkset pointing at the public API, OpenAPI, MCP server and health endpoints.
+      - path: /.well-known/oauth-protected-resource
+        status: 200
+        content_type: application/json
+        file: coworkingview-api-oauth-protected-resource.json
+        note: RFC 9728 metadata; scopes_supported and bearer_methods_supported both empty (no bearer auth).
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        content_type: application/json
+        file: coworkingview-api-oauth-authorization-server.json
+        note: grant_types_supported empty; the only substantive field is agent_auth.skill -> https://coworkingview.com/auth.md
+      - path: /.well-known/openid-configuration
+        status: 200
+        content_type: application/json
+        file: coworkingview-api-openid-configuration.json
+        note: Same agent_auth.skill hop; no live OIDC flow.
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: api.coworkingview.com
+    documents:
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+  - host: mcp.coworkingview.com
+    documents:
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404

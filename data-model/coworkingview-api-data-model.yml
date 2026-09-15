@@ -1,0 +1,64 @@
+name: CoworkingView Data Model
+description: >-
+  Entity-relationship graph derived from the CoworkingView /v1 operations. The catalogue is organised around
+  Property (a coworking space) with slug-referenced relationships to Operator (brand) and Place (city/zone),
+  plus derived Market Rate and Ranking views and a Lead write entity.
+generated: '2026-09-15'
+method: derived
+source: openapi/coworkingview-api-openapi.json operations and their slug path/query parameters.
+entities:
+  - name: Property
+    aka: coworking space
+    identifier: slug
+    read_via: [listProperties, mapProperties, propertyDetail, searchSuggest]
+    note: A space with address, capacity, amenities, workspace types and operator-published pricing.
+  - name: Operator
+    aka: brand
+    identifier: slug
+    read_via: [operatorProfile]
+  - name: Place
+    aka: country/city/zone
+    identifier: [kind, slug]
+    read_via: [placeProfile, geoBootstrap]
+    note: geoBootstrap returns the country/city/zone slug tree with space counts.
+  - name: MarketRate
+    read_via: [marketRates]
+    note: Operator-published rate index scoped by city/country/currency.
+  - name: Ranking
+    read_via: [rankings]
+    note: Ranked "best" list scoped by city.
+  - name: Facets
+    read_via: [facets]
+    note: Available filter dimensions (amenities, workspace types, price bands) for a scope.
+  - name: Lead
+    write_via: [inquiry, contact]
+    note: Enquiry forwarded to an operator; not a persisted, caller-mutable resource.
+relationships:
+  - from: Property
+    to: Operator
+    type: belongs_to
+    via: operator (slug filter on listProperties; operator profile)
+  - from: Property
+    to: Place
+    type: belongs_to
+    via: city/zone/country slugs
+  - from: Operator
+    to: Property
+    type: has_many
+    via: operator slug
+  - from: Place
+    to: Property
+    type: has_many
+    via: city/zone/country slugs
+  - from: MarketRate
+    to: Place
+    type: belongs_to
+    via: city/country
+  - from: Ranking
+    to: Property
+    type: has_many
+    via: city ranking list
+  - from: Lead
+    to: Property
+    type: references
+    via: properties[] (shortlist of slugs on inquiry)

@@ -1,0 +1,12 @@
+name: CoworkingView Agent Skills
+description: Packaged agent skills grounded in real CoworkingView /v1 operationIds.
+generated: '2026-09-15'
+method: generated
+source: openapi/coworkingview-api-openapi.json (operationIds grepped from the live spec) plus provider docs.
+skills:
+  - name: coworkingview-search-and-compare
+    file: coworkingview-api-search-and-compare.md
+    operations: [geoBootstrap, searchSuggest, facets, listProperties, propertyDetail, marketRates, rankings]
+  - name: coworkingview-submit-inquiry
+    file: coworkingview-api-submit-inquiry.md
+    operations: [inquiry, contact]

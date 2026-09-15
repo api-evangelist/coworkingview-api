@@ -1,0 +1,24 @@
+name: CoworkingView Rate Limits
+description: >-
+  CoworkingView publishes that its API and MCP server are rate-limited per IP address to keep the service
+  available, and the contract enumerates a 429 RATE_LIMITED problem, but it does not document numeric limits,
+  windows or response headers.
+generated: '2026-09-15'
+method: searched
+source: >-
+  https://coworkingview.com/en/mcp ("Usage is rate-limited per IP address to keep the server available for
+  everyone") and openapi/coworkingview-api-openapi.json (every operation declares a 429 response with code
+  RATE_LIMITED).
+limit_count: 0
+exhaustion:
+  status: 429
+  code: RATE_LIMITED
+  body: application/problem+json (ProblemDetails)
+limits: []
+headers:
+  documented: false
+  note: >-
+    No X-RateLimit-* / RateLimit-* / Retry-After headers are documented in the spec or docs. The numeric limit,
+    window and burst are not published — only that limiting is per IP. Recorded as limit_count 0 (honest gap),
+    not fabricated.
+scope: per-ip

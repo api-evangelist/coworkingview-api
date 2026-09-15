@@ -1,0 +1,70 @@
+name: CoworkingView MCP Server
+description: >-
+  Official hosted, remote MCP server (Streamable HTTP) for CoworkingView, exposing 10 read-only tools for
+  discovering, searching, comparing and profiling coworking spaces, operators, places and market rates across
+  Europe and the Middle East. No sign-up and no API key; rate-limited per IP.
+generated: '2026-09-15'
+method: probed
+source: >-
+  POST https://mcp.coworkingview.com/mcp {"jsonrpc":"2.0","method":"tools/list"} returned HTTP 200 with 10 tools,
+  each carrying a real JSON Schema draft-07 inputSchema AND outputSchema. Connection guide at
+  https://coworkingview.com/en/mcp; also listed in the MCP registry (registry.modelcontextprotocol.io, id com.coworkingview/mcp).
+x-evidence:
+  fetched: '2026-09-15'
+  url: https://mcp.coworkingview.com/mcp
+  http_status: 200
+  content_type: application/json
+  tool_count: 10
+deployment:
+  mode: remote
+  endpoint: https://mcp.coworkingview.com/mcp
+  transport: streamable-http
+  auth: none
+  verified: probed
+  note: >-
+    Reachable now by any MCP client; anonymous tools/list succeeds. All 10 tools are read-only (readOnlyHint:true).
+    The provider also documents an in-browser WebMCP surface exposed on document.modelContext (see
+    components/coworkingview-api-components.yml) — a distinct, page-scoped tool set, not this remote server.
+install:
+  claude_code: claude mcp add --transport http coworkingview https://mcp.coworkingview.com/mcp
+tools:
+  - name: list_coworking_locations
+    read_only: true
+    description: Lists every country, city and zone (with exact slugs and space counts) required by the other tools.
+    input: [locale, country]
+  - name: resolve_coworking_query
+    read_only: true
+    description: Resolves a free-text place or query into the canonical slugs the other tools accept.
+    input: [query, locale, limit]
+  - name: get_coworking_filter_options
+    read_only: true
+    description: Returns the available filter facets (amenities, workspace types, price bands) for a scope.
+    input: [locale, city, zone, country, operator]
+  - name: search_coworking_spaces
+    read_only: true
+    description: Searches/filters coworking spaces by city, zone, operator, amenities, capacity, price, geo radius or bbox.
+    input: [locale, city, zone, country, operator, workspaceType, amenities, minCapacity, maxPrice, currency, latitude, longitude, radiusKm, bbox, sort, cursor]
+  - name: get_coworking_space
+    read_only: true
+    description: Fetches full detail for one space by slug.
+    input: [slug, locale, detail, includePhoto]
+  - name: compare_coworking_spaces
+    read_only: true
+    description: Side-by-side comparison of a shortlist of spaces by slug.
+    input: [slugs, locale, detail]
+  - name: get_coworking_market_rates
+    read_only: true
+    description: Operator-published market rate index for a city/country.
+    input: [locale, city, country, currency]
+  - name: get_best_coworking
+    read_only: true
+    description: Ranked "best" list for a city.
+    input: [locale, city, limit]
+  - name: get_coworking_operator
+    read_only: true
+    description: Operator/brand profile by slug.
+    input: [slug, locale]
+  - name: get_coworking_place_guide
+    read_only: true
+    description: Editorial place guide (city/zone) by kind and slug.
+    input: [kind, slug, locale]

@@ -1,0 +1,28 @@
+name: CoworkingView Authentication
+description: >-
+  The CoworkingView /v1 REST API declares no security schemes: every GET under /v1 is unauthenticated (no API
+  key, client ID or session). The two write paths (POST /v1/leads/inquiry, POST /v1/leads/contact) are not
+  gated by an agent credential either — they are gated by a Cloudflare Turnstile challenge token, returning
+  CHALLENGE_FAILED (403) when it is missing or invalid. The provider publishes an auth.md agent skill that
+  states this plainly.
+generated: '2026-09-15'
+method: searched
+source: >-
+  openapi/coworkingview-api-openapi.json (components.securitySchemes is empty; no top-level security) plus the
+  provider's own https://coworkingview.com/auth.md (HTTP 200, text/markdown) and the
+  /.well-known/oauth-protected-resource document (scopes_supported and bearer_methods_supported both empty).
+schemes: []
+profile:
+  reads:
+    auth: none
+    detail: All GET /v1/* operations (properties, search, facets, market rates, rankings, operators, places, health, config) are public. No WWW-Authenticate is emitted on any response.
+  writes:
+    auth: turnstile-challenge
+    detail: POST /v1/leads/inquiry and POST /v1/leads/contact require a Cloudflare Turnstile challengeToken in the request body in production; absence/invalidity yields 403 with code CHALLENGE_FAILED. This is bot mitigation, not an agent credential.
+oauth:
+  present: false
+  note: >-
+    oauth-authorization-server and openid-configuration documents resolve on coworkingview.com but declare no
+    grant types, scopes or bearer methods; their agent_auth.skill points back at auth.md, which states OAuth
+    client registration/token issuance is "not applicable" for this API.
+docs: https://coworkingview.com/auth.md

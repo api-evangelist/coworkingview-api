@@ -1,12 +1,18 @@
 name: CoworkingView API
 description: >-
   An independent search and comparison platform for coworking spaces and flexible workspace across Europe and the Middle
-  East, exposing a read-only REST API and a hosted MCP server with operator-published prices, availability, amenities
-  and location data. Free with no commission and no API key required for reads.
+  East, exposing a read-only REST API and a hosted MCP server with operator-published prices, amenities
+  and location data. Holds no availability and books nothing; free with no commission and no API key required for reads.
 url: https://raw.githubusercontent.com/api-evangelist/coworkingview-api/refs/heads/main/apis.yml
+image: https://coworkingview.com/og-image.png
 created: '2026-09-15'
 modified: '2026-09-15'
 specificationVersion: '0.21'
+x-enrichment:
+  date: '2026-09-15'
+  status: enriched
+  artifacts_added: 18
+  pass: local-v3
 tags:
   - coworking
   - flexible workspace
@@ -19,6 +25,7 @@ tags:
   - business
 apis:
   - name: CoworkingView REST API
+    image: https://coworkingview.com/og-image.png
     description: >-
       Read-only REST API to list, filter and fetch coworking spaces; no API key required for reads, production doubles
       as sandbox. OpenAPI 3.1 spec declared at coworkingview.com/openapi.json.
@@ -41,7 +48,36 @@ apis:
         url: https://coworkingview.com/en/mcp
       - type: LLMsTxt
         url: https://coworkingview.com/llms.txt
+      - type: Overlay
+        url: overlays/coworkingview-api-openapi-overlay.yaml
+      - type: Authentication
+        url: authentication/coworkingview-api-authentication.yml
+      - type: Conventions
+        url: conventions/coworkingview-api-conventions.yml
+      - type: Idempotency
+        url: conventions/coworkingview-api-conventions.yml
+      - type: ErrorCatalog
+        url: errors/coworkingview-api-problem-types.yml
+      - type: Lifecycle
+        url: lifecycle/coworkingview-api-lifecycle.yml
+      - type: Deprecation
+        url: lifecycle/coworkingview-api-lifecycle.yml
+      - type: RateLimits
+        url: rate-limits/coworkingview-api-rate-limits.yml
+      - type: Plans
+        url: plans/coworkingview-api-plans-pricing.yml
+      - type: DataModel
+        url: data-model/coworkingview-api-data-model.yml
+      - type: Sandbox
+        url: sandbox/coworkingview-api-sandbox.yml
+      - type: AgentSkill
+        url: skills/_index.yml
+      - type: APIReference
+        url: https://coworkingview.com/openapi.json
+      - type: Support
+        url: https://coworkingview.com/en/contact
   - name: CoworkingView MCP Server
+    image: https://coworkingview.com/og-image.png
     description: >-
       Hosted MCP server (Streamable HTTP) exposing 10 read-only tools for searching, comparing and fetching coworking
       spaces, market rates, locations, operators and guides. Independently health-verified on Glama.
@@ -59,14 +95,28 @@ apis:
       - business
     properties:
       - type: MCPServer
-        url: https://mcp.coworkingview.com/mcp
+        url: mcp/coworkingview-api-mcp.yml
+      - type: ToolCrosswalk
+        url: mcp/coworkingview-api-tool-crosswalk.yml
       - type: Documentation
         url: https://coworkingview.com/en/mcp
 maintainers:
   - FN: CoworkingView API
+    email: info@coworkingview.com
     url: https://coworkingview.com
 generated:
   by: apis.io/add
   model: claude-opus-4-8
   confidence: 90
   at: '2026-09-15T12:16:39.547Z'
+common:
+- type: Website
+  url: https://coworkingview.com
+- type: DomainSecurity
+  url: security/coworkingview-api-domain-security.yml
+- type: WellKnown
+  url: well-known/coworkingview-api-well-known.yml
+- type: Conformance
+  url: conformance/coworkingview-api-conformance.yml
+- type: Components
+  url: components/coworkingview-api-components.yml

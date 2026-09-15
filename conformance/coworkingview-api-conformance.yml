@@ -1,0 +1,46 @@
+name: CoworkingView Conformance
+description: >-
+  Cross-cutting standards the CoworkingView API demonstrably conforms to, each with evidence pointing at the
+  exact contract or served document. The provider leans on IETF discovery + agent-web conventions (RFC 9457,
+  RFC 9727, RFC 9728, RFC 8288) rather than a vertical real-estate data standard.
+generated: '2026-09-15'
+method: derived
+source: openapi/coworkingview-api-openapi.json plus the served /.well-known/* documents probed 2026-09-15.
+conformance:
+  - id: rfc9457
+    name: Problem Details for HTTP APIs
+    conforms: true
+    evidence: All error responses are application/problem+json against components.schemas.ProblemDetails in openapi/coworkingview-api-openapi.json.
+  - id: rfc9727
+    name: api-catalog well-known linkset
+    conforms: true
+    evidence: https://coworkingview.com/.well-known/api-catalog returns application/linkset+json;profile=rfc9727 (well-known/coworkingview-api-api-catalog.json).
+  - id: rfc9728
+    name: OAuth 2.0 Protected Resource Metadata
+    conforms: true
+    evidence: https://coworkingview.com/.well-known/oauth-protected-resource returns a conformant resource metadata document (well-known/coworkingview-api-oauth-protected-resource.json), honestly declaring no bearer methods.
+  - id: rfc8288
+    name: Web Linking (linkset)
+    conforms: true
+    evidence: The api-catalog document is an RFC 8288 linkset (anchor/item/service-desc/service-doc/status relations).
+  - id: openapi-3.1
+    name: OpenAPI 3.1.0
+    conforms: true
+    evidence: openapi/coworkingview-api-openapi.json declares openapi 3.1.0 with 15 documented operations.
+  - id: mcp
+    name: Model Context Protocol (Streamable HTTP)
+    conforms: true
+    evidence: https://mcp.coworkingview.com/mcp answers tools/list over Streamable HTTP with 10 schema-typed tools (mcp/coworkingview-api-mcp-tools-raw.json).
+  - id: llmstxt
+    name: llms.txt
+    conforms: true
+    evidence: https://coworkingview.com/llms.txt served verbatim (llms/coworkingview-api-llms.txt); Markdown-twin (.md) renditions on every content URL.
+  - id: oauth2
+    name: OAuth 2.0 authorization
+    conforms: false
+    evidence: Authorization-server metadata declares empty grant_types_supported; the API implements no OAuth flow (auth.md states "not applicable").
+domain_standard:
+  present: false
+  note: >-
+    The flexible-workspace / real-estate-listings market has no widely-adopted machine-readable API standard the
+    contract could declare, so no domain_standard_conformance is asserted (reward-only; absence is not penalised).

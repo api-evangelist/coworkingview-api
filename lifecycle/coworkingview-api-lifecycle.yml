@@ -1,0 +1,32 @@
+name: CoworkingView API Lifecycle
+description: >-
+  Versioning, stability and operational-health posture for the CoworkingView /v1 API, read from the contract's
+  own info.description and health/config operations.
+generated: '2026-09-15'
+method: derived
+source: openapi/coworkingview-api-openapi.json (info.description, /v1/health, /v1/config) and https://coworkingview.com/en/mcp.
+versioning:
+  scheme: uri-path-major
+  current: v1
+  stability: >-
+    Append-only within a major version — fields are added, never removed or retyped, because clients include
+    mobile builds that cannot be recalled. A breaking change becomes /v2, with /v1 kept alive for at least two
+    app releases.
+deprecation:
+  policy_documented: true
+  detail: >-
+    The stated "/v1 kept alive for at least two app releases" is the deprecation window. GET /v1/config exposes
+    the minimum supported client build; a client below it receives 400 CLIENT_TOO_OLD. No RFC 8594
+    Sunset/Deprecation response headers are documented.
+  deprecated_operations: []
+health:
+  endpoints:
+    - https://api.coworkingview.com/v1/health
+    - https://coworkingview.com/api/health
+  detail: GET /v1/health is a public liveness probe (operationId health). No hosted third-party status page is published.
+status_page: none
+sla: none-published
+support:
+  email: info@coworkingview.com
+  phone: "+49 151 56130622"
+  consultation: https://coworkingview.com/en/contact
