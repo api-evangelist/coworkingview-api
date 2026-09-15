@@ -1,0 +1,72 @@
+name: CoworkingView API
+description: >-
+  An independent search and comparison platform for coworking spaces and flexible workspace across Europe and the Middle
+  East, exposing a read-only REST API and a hosted MCP server with operator-published prices, availability, amenities
+  and location data. Free with no commission and no API key required for reads.
+url: https://raw.githubusercontent.com/api-evangelist/coworkingview-api/refs/heads/main/apis.yml
+created: '2026-09-15'
+modified: '2026-09-15'
+specificationVersion: '0.21'
+tags:
+  - coworking
+  - flexible workspace
+  - real estate
+  - location services
+  - search
+  - comparison
+  - MCP
+  - agent-native
+  - business
+apis:
+  - name: CoworkingView REST API
+    description: >-
+      Read-only REST API to list, filter and fetch coworking spaces; no API key required for reads, production doubles
+      as sandbox. OpenAPI 3.1 spec declared at coworkingview.com/openapi.json.
+    humanURL: https://coworkingview.com/en/mcp
+    baseURL: https://api.coworkingview.com
+    tags:
+      - coworking
+      - flexible workspace
+      - real estate
+      - location services
+      - search
+      - comparison
+      - MCP
+      - agent-native
+      - business
+    properties:
+      - type: OpenAPI
+        url: https://coworkingview.com/openapi.json
+      - type: Documentation
+        url: https://coworkingview.com/en/mcp
+      - type: LLMsTxt
+        url: https://coworkingview.com/llms.txt
+  - name: CoworkingView MCP Server
+    description: >-
+      Hosted MCP server (Streamable HTTP) exposing 10 read-only tools for searching, comparing and fetching coworking
+      spaces, market rates, locations, operators and guides. Independently health-verified on Glama.
+    humanURL: https://coworkingview.com/en/mcp
+    baseURL: https://mcp.coworkingview.com/mcp
+    tags:
+      - coworking
+      - flexible workspace
+      - real estate
+      - location services
+      - search
+      - comparison
+      - MCP
+      - agent-native
+      - business
+    properties:
+      - type: MCPServer
+        url: https://mcp.coworkingview.com/mcp
+      - type: Documentation
+        url: https://coworkingview.com/en/mcp
+maintainers:
+  - FN: CoworkingView API
+    url: https://coworkingview.com
+generated:
+  by: apis.io/add
+  model: claude-opus-4-8
+  confidence: 90
+  at: '2026-09-15T12:16:39.547Z'
