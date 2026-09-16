@@ -14,6 +14,16 @@ x-enrichment:
   artifacts_added: 18
   pass: local-v3
 tags:
+  - Co-Working
+  - Flexible Workspace
+  - Real-Estate
+  - Location Services
+  - Search
+  - Comparison
+  - MCP
+  - agent-native
+  - Business
+tags_raw:
   - coworking
   - flexible workspace
   - real estate
@@ -24,82 +34,459 @@ tags:
   - agent-native
   - business
 apis:
-  - name: CoworkingView REST API
-    image: https://coworkingview.com/og-image.png
-    description: >-
-      Read-only REST API to list, filter and fetch coworking spaces; no API key required for reads, production doubles
-      as sandbox. OpenAPI 3.1 spec declared at coworkingview.com/openapi.json.
-    humanURL: https://coworkingview.com/en/mcp
-    baseURL: https://api.coworkingview.com
-    tags:
-      - coworking
-      - flexible workspace
-      - real estate
-      - location services
-      - search
-      - comparison
-      - MCP
-      - agent-native
-      - business
-    properties:
-      - type: OpenAPI
-        url: https://coworkingview.com/openapi.json
-      - type: Documentation
-        url: https://coworkingview.com/en/mcp
-      - type: LLMsTxt
-        url: https://coworkingview.com/llms.txt
-      - type: Overlay
-        url: overlays/coworkingview-api-openapi-overlay.yaml
-      - type: Authentication
-        url: authentication/coworkingview-api-authentication.yml
-      - type: Conventions
-        url: conventions/coworkingview-api-conventions.yml
-      - type: Idempotency
-        url: conventions/coworkingview-api-conventions.yml
-      - type: ErrorCatalog
-        url: errors/coworkingview-api-problem-types.yml
-      - type: Lifecycle
-        url: lifecycle/coworkingview-api-lifecycle.yml
-      - type: Deprecation
-        url: lifecycle/coworkingview-api-lifecycle.yml
-      - type: RateLimits
-        url: rate-limits/coworkingview-api-rate-limits.yml
-      - type: Plans
-        url: plans/coworkingview-api-plans-pricing.yml
-      - type: DataModel
-        url: data-model/coworkingview-api-data-model.yml
-      - type: Sandbox
-        url: sandbox/coworkingview-api-sandbox.yml
-      - type: AgentSkill
-        url: skills/_index.yml
-      - type: APIReference
-        url: https://coworkingview.com/openapi.json
-      - type: Support
-        url: https://coworkingview.com/en/contact
-  - name: CoworkingView MCP Server
-    image: https://coworkingview.com/og-image.png
-    description: >-
-      Hosted MCP server (Streamable HTTP) exposing 10 read-only tools for searching, comparing and fetching coworking
-      spaces, market rates, locations, operators and guides. Independently health-verified on Glama.
-    humanURL: https://coworkingview.com/en/mcp
-    baseURL: https://mcp.coworkingview.com/mcp
-    tags:
-      - coworking
-      - flexible workspace
-      - real estate
-      - location services
-      - search
-      - comparison
-      - MCP
-      - agent-native
-      - business
-    properties:
-      - type: MCPServer
-        url: mcp/coworkingview-api-mcp.yml
-      - type: ToolCrosswalk
-        url: mcp/coworkingview-api-tool-crosswalk.yml
-      - type: Documentation
-        url: https://coworkingview.com/en/mcp
+- name: CoworkingView MCP Server
+  image: https://coworkingview.com/og-image.png
+  description: >-
+    Hosted MCP server (Streamable HTTP) exposing 10 read-only tools for searching, comparing and fetching
+    coworking spaces, market rates, locations, operators and guides. Independently health-verified on
+    Glama.
+  humanURL: https://coworkingview.com/en/mcp
+  baseURL: https://mcp.coworkingview.com/mcp
+  tags:
+  - Co-Working
+  - Flexible Workspace
+  - Real-Estate
+  - Location Services
+  - Search
+  - Comparison
+  - MCP
+  - agent-native
+  - Business
+  tags_raw:
+  - coworking
+  - flexible workspace
+  - real estate
+  - location services
+  - search
+  - comparison
+  - MCP
+  - agent-native
+  - business
+  properties:
+  - type: MCPServer
+    url: mcp/coworkingview-api-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/coworkingview-api-tool-crosswalk.yml
+  - type: Documentation
+    url: https://coworkingview.com/en/mcp
+- aid: coworkingview-api:coworkingview-api-config-api
+  name: CoworkingView API Config API
+  description: The config API from CoworkingView API — 1 operation(s) for config.
+  humanURL: https://coworkingview.com/en/mcp
+  baseURL: https://api.coworkingview.com
+  tags:
+  - config
+  properties:
+  - type: OpenAPI
+    url: openapi/coworkingview-api-config-api-openapi.yml
+  - type: Documentation
+    url: https://coworkingview.com/en/mcp
+  - type: LLMsTxt
+    url: https://coworkingview.com/llms.txt
+  - type: Authentication
+    url: authentication/coworkingview-api-authentication.yml
+  - type: Conventions
+    url: conventions/coworkingview-api-conventions.yml
+  - type: Idempotency
+    url: conventions/coworkingview-api-conventions.yml
+  - type: ErrorCatalog
+    url: errors/coworkingview-api-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/coworkingview-api-lifecycle.yml
+  - type: Deprecation
+    url: lifecycle/coworkingview-api-lifecycle.yml
+  - type: RateLimits
+    url: rate-limits/coworkingview-api-rate-limits.yml
+  - type: Plans
+    url: plans/coworkingview-api-plans-pricing.yml
+  - type: DataModel
+    url: data-model/coworkingview-api-data-model.yml
+  - type: Sandbox
+    url: sandbox/coworkingview-api-sandbox.yml
+  - type: APIReference
+    url: https://coworkingview.com/openapi.json
+  - type: Support
+    url: https://coworkingview.com/en/contact
+- aid: coworkingview-api:coworkingview-api-facets-api
+  name: CoworkingView API Facets API
+  description: The facets API from CoworkingView API — 1 operation(s) for facets.
+  humanURL: https://coworkingview.com/en/mcp
+  baseURL: https://api.coworkingview.com
+  tags:
+  - facets
+  properties:
+  - type: OpenAPI
+    url: openapi/coworkingview-api-facets-api-openapi.yml
+  - type: Documentation
+    url: https://coworkingview.com/en/mcp
+  - type: LLMsTxt
+    url: https://coworkingview.com/llms.txt
+  - type: Authentication
+    url: authentication/coworkingview-api-authentication.yml
+  - type: Conventions
+    url: conventions/coworkingview-api-conventions.yml
+  - type: Idempotency
+    url: conventions/coworkingview-api-conventions.yml
+  - type: ErrorCatalog
+    url: errors/coworkingview-api-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/coworkingview-api-lifecycle.yml
+  - type: Deprecation
+    url: lifecycle/coworkingview-api-lifecycle.yml
+  - type: RateLimits
+    url: rate-limits/coworkingview-api-rate-limits.yml
+  - type: Plans
+    url: plans/coworkingview-api-plans-pricing.yml
+  - type: DataModel
+    url: data-model/coworkingview-api-data-model.yml
+  - type: Sandbox
+    url: sandbox/coworkingview-api-sandbox.yml
+  - type: APIReference
+    url: https://coworkingview.com/openapi.json
+  - type: Support
+    url: https://coworkingview.com/en/contact
+- aid: coworkingview-api:coworkingview-api-geo-api
+  name: CoworkingView API Geo API
+  description: The geo API from CoworkingView API — 1 operation(s) for geo.
+  humanURL: https://coworkingview.com/en/mcp
+  baseURL: https://api.coworkingview.com
+  tags:
+  - geo
+  properties:
+  - type: OpenAPI
+    url: openapi/coworkingview-api-geo-api-openapi.yml
+  - type: Documentation
+    url: https://coworkingview.com/en/mcp
+  - type: LLMsTxt
+    url: https://coworkingview.com/llms.txt
+  - type: Authentication
+    url: authentication/coworkingview-api-authentication.yml
+  - type: Conventions
+    url: conventions/coworkingview-api-conventions.yml
+  - type: Idempotency
+    url: conventions/coworkingview-api-conventions.yml
+  - type: ErrorCatalog
+    url: errors/coworkingview-api-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/coworkingview-api-lifecycle.yml
+  - type: Deprecation
+    url: lifecycle/coworkingview-api-lifecycle.yml
+  - type: RateLimits
+    url: rate-limits/coworkingview-api-rate-limits.yml
+  - type: Plans
+    url: plans/coworkingview-api-plans-pricing.yml
+  - type: DataModel
+    url: data-model/coworkingview-api-data-model.yml
+  - type: Sandbox
+    url: sandbox/coworkingview-api-sandbox.yml
+  - type: APIReference
+    url: https://coworkingview.com/openapi.json
+  - type: Support
+    url: https://coworkingview.com/en/contact
+- aid: coworkingview-api:coworkingview-api-health-api
+  name: CoworkingView API Health API
+  description: The health API from CoworkingView API — 1 operation(s) for health.
+  humanURL: https://coworkingview.com/en/mcp
+  baseURL: https://api.coworkingview.com
+  tags:
+  - health
+  properties:
+  - type: OpenAPI
+    url: openapi/coworkingview-api-health-api-openapi.yml
+  - type: Documentation
+    url: https://coworkingview.com/en/mcp
+  - type: LLMsTxt
+    url: https://coworkingview.com/llms.txt
+  - type: Authentication
+    url: authentication/coworkingview-api-authentication.yml
+  - type: Conventions
+    url: conventions/coworkingview-api-conventions.yml
+  - type: Idempotency
+    url: conventions/coworkingview-api-conventions.yml
+  - type: ErrorCatalog
+    url: errors/coworkingview-api-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/coworkingview-api-lifecycle.yml
+  - type: Deprecation
+    url: lifecycle/coworkingview-api-lifecycle.yml
+  - type: RateLimits
+    url: rate-limits/coworkingview-api-rate-limits.yml
+  - type: Plans
+    url: plans/coworkingview-api-plans-pricing.yml
+  - type: DataModel
+    url: data-model/coworkingview-api-data-model.yml
+  - type: Sandbox
+    url: sandbox/coworkingview-api-sandbox.yml
+  - type: APIReference
+    url: https://coworkingview.com/openapi.json
+  - type: Support
+    url: https://coworkingview.com/en/contact
+- aid: coworkingview-api:coworkingview-api-leads-api
+  name: CoworkingView API Leads API
+  description: The leads API from CoworkingView API — 2 operation(s) for leads.
+  humanURL: https://coworkingview.com/en/mcp
+  baseURL: https://api.coworkingview.com
+  tags:
+  - leads
+  properties:
+  - type: OpenAPI
+    url: openapi/coworkingview-api-leads-api-openapi.yml
+  - type: Documentation
+    url: https://coworkingview.com/en/mcp
+  - type: LLMsTxt
+    url: https://coworkingview.com/llms.txt
+  - type: Authentication
+    url: authentication/coworkingview-api-authentication.yml
+  - type: Conventions
+    url: conventions/coworkingview-api-conventions.yml
+  - type: Idempotency
+    url: conventions/coworkingview-api-conventions.yml
+  - type: ErrorCatalog
+    url: errors/coworkingview-api-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/coworkingview-api-lifecycle.yml
+  - type: Deprecation
+    url: lifecycle/coworkingview-api-lifecycle.yml
+  - type: RateLimits
+    url: rate-limits/coworkingview-api-rate-limits.yml
+  - type: Plans
+    url: plans/coworkingview-api-plans-pricing.yml
+  - type: DataModel
+    url: data-model/coworkingview-api-data-model.yml
+  - type: Sandbox
+    url: sandbox/coworkingview-api-sandbox.yml
+  - type: APIReference
+    url: https://coworkingview.com/openapi.json
+  - type: Support
+    url: https://coworkingview.com/en/contact
+- aid: coworkingview-api:coworkingview-api-market-api
+  name: CoworkingView API Market API
+  description: The market API from CoworkingView API — 1 operation(s) for market.
+  humanURL: https://coworkingview.com/en/mcp
+  baseURL: https://api.coworkingview.com
+  tags:
+  - market
+  properties:
+  - type: OpenAPI
+    url: openapi/coworkingview-api-market-api-openapi.yml
+  - type: Documentation
+    url: https://coworkingview.com/en/mcp
+  - type: LLMsTxt
+    url: https://coworkingview.com/llms.txt
+  - type: Authentication
+    url: authentication/coworkingview-api-authentication.yml
+  - type: Conventions
+    url: conventions/coworkingview-api-conventions.yml
+  - type: Idempotency
+    url: conventions/coworkingview-api-conventions.yml
+  - type: ErrorCatalog
+    url: errors/coworkingview-api-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/coworkingview-api-lifecycle.yml
+  - type: Deprecation
+    url: lifecycle/coworkingview-api-lifecycle.yml
+  - type: RateLimits
+    url: rate-limits/coworkingview-api-rate-limits.yml
+  - type: Plans
+    url: plans/coworkingview-api-plans-pricing.yml
+  - type: DataModel
+    url: data-model/coworkingview-api-data-model.yml
+  - type: Sandbox
+    url: sandbox/coworkingview-api-sandbox.yml
+  - type: APIReference
+    url: https://coworkingview.com/openapi.json
+  - type: Support
+    url: https://coworkingview.com/en/contact
+- aid: coworkingview-api:coworkingview-api-operators-api
+  name: CoworkingView API Operators API
+  description: The operators API from CoworkingView API — 1 operation(s) for operators.
+  humanURL: https://coworkingview.com/en/mcp
+  baseURL: https://api.coworkingview.com
+  tags:
+  - operators
+  properties:
+  - type: OpenAPI
+    url: openapi/coworkingview-api-operators-api-openapi.yml
+  - type: Documentation
+    url: https://coworkingview.com/en/mcp
+  - type: LLMsTxt
+    url: https://coworkingview.com/llms.txt
+  - type: Authentication
+    url: authentication/coworkingview-api-authentication.yml
+  - type: Conventions
+    url: conventions/coworkingview-api-conventions.yml
+  - type: Idempotency
+    url: conventions/coworkingview-api-conventions.yml
+  - type: ErrorCatalog
+    url: errors/coworkingview-api-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/coworkingview-api-lifecycle.yml
+  - type: Deprecation
+    url: lifecycle/coworkingview-api-lifecycle.yml
+  - type: RateLimits
+    url: rate-limits/coworkingview-api-rate-limits.yml
+  - type: Plans
+    url: plans/coworkingview-api-plans-pricing.yml
+  - type: DataModel
+    url: data-model/coworkingview-api-data-model.yml
+  - type: Sandbox
+    url: sandbox/coworkingview-api-sandbox.yml
+  - type: APIReference
+    url: https://coworkingview.com/openapi.json
+  - type: Support
+    url: https://coworkingview.com/en/contact
+- aid: coworkingview-api:coworkingview-api-places-api
+  name: CoworkingView API Places API
+  description: The places API from CoworkingView API — 1 operation(s) for places.
+  humanURL: https://coworkingview.com/en/mcp
+  baseURL: https://api.coworkingview.com
+  tags:
+  - places
+  properties:
+  - type: OpenAPI
+    url: openapi/coworkingview-api-places-api-openapi.yml
+  - type: Documentation
+    url: https://coworkingview.com/en/mcp
+  - type: LLMsTxt
+    url: https://coworkingview.com/llms.txt
+  - type: Authentication
+    url: authentication/coworkingview-api-authentication.yml
+  - type: Conventions
+    url: conventions/coworkingview-api-conventions.yml
+  - type: Idempotency
+    url: conventions/coworkingview-api-conventions.yml
+  - type: ErrorCatalog
+    url: errors/coworkingview-api-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/coworkingview-api-lifecycle.yml
+  - type: Deprecation
+    url: lifecycle/coworkingview-api-lifecycle.yml
+  - type: RateLimits
+    url: rate-limits/coworkingview-api-rate-limits.yml
+  - type: Plans
+    url: plans/coworkingview-api-plans-pricing.yml
+  - type: DataModel
+    url: data-model/coworkingview-api-data-model.yml
+  - type: Sandbox
+    url: sandbox/coworkingview-api-sandbox.yml
+  - type: APIReference
+    url: https://coworkingview.com/openapi.json
+  - type: Support
+    url: https://coworkingview.com/en/contact
+- aid: coworkingview-api:coworkingview-api-properties-api
+  name: CoworkingView API Properties API
+  description: The properties API from CoworkingView API — 3 operation(s) for properties.
+  humanURL: https://coworkingview.com/en/mcp
+  baseURL: https://api.coworkingview.com
+  tags:
+  - properties
+  properties:
+  - type: OpenAPI
+    url: openapi/coworkingview-api-properties-api-openapi.yml
+  - type: Documentation
+    url: https://coworkingview.com/en/mcp
+  - type: LLMsTxt
+    url: https://coworkingview.com/llms.txt
+  - type: Authentication
+    url: authentication/coworkingview-api-authentication.yml
+  - type: Conventions
+    url: conventions/coworkingview-api-conventions.yml
+  - type: Idempotency
+    url: conventions/coworkingview-api-conventions.yml
+  - type: ErrorCatalog
+    url: errors/coworkingview-api-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/coworkingview-api-lifecycle.yml
+  - type: Deprecation
+    url: lifecycle/coworkingview-api-lifecycle.yml
+  - type: RateLimits
+    url: rate-limits/coworkingview-api-rate-limits.yml
+  - type: Plans
+    url: plans/coworkingview-api-plans-pricing.yml
+  - type: DataModel
+    url: data-model/coworkingview-api-data-model.yml
+  - type: Sandbox
+    url: sandbox/coworkingview-api-sandbox.yml
+  - type: APIReference
+    url: https://coworkingview.com/openapi.json
+  - type: Support
+    url: https://coworkingview.com/en/contact
+- aid: coworkingview-api:coworkingview-api-rankings-api
+  name: CoworkingView API Rankings API
+  description: The rankings API from CoworkingView API — 1 operation(s) for rankings.
+  humanURL: https://coworkingview.com/en/mcp
+  baseURL: https://api.coworkingview.com
+  tags:
+  - rankings
+  properties:
+  - type: OpenAPI
+    url: openapi/coworkingview-api-rankings-api-openapi.yml
+  - type: Documentation
+    url: https://coworkingview.com/en/mcp
+  - type: LLMsTxt
+    url: https://coworkingview.com/llms.txt
+  - type: Authentication
+    url: authentication/coworkingview-api-authentication.yml
+  - type: Conventions
+    url: conventions/coworkingview-api-conventions.yml
+  - type: Idempotency
+    url: conventions/coworkingview-api-conventions.yml
+  - type: ErrorCatalog
+    url: errors/coworkingview-api-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/coworkingview-api-lifecycle.yml
+  - type: Deprecation
+    url: lifecycle/coworkingview-api-lifecycle.yml
+  - type: RateLimits
+    url: rate-limits/coworkingview-api-rate-limits.yml
+  - type: Plans
+    url: plans/coworkingview-api-plans-pricing.yml
+  - type: DataModel
+    url: data-model/coworkingview-api-data-model.yml
+  - type: Sandbox
+    url: sandbox/coworkingview-api-sandbox.yml
+  - type: APIReference
+    url: https://coworkingview.com/openapi.json
+  - type: Support
+    url: https://coworkingview.com/en/contact
+- aid: coworkingview-api:coworkingview-api-search-api
+  name: CoworkingView API Search API
+  description: The search API from CoworkingView API — 1 operation(s) for search.
+  humanURL: https://coworkingview.com/en/mcp
+  baseURL: https://api.coworkingview.com
+  tags:
+  - search
+  properties:
+  - type: OpenAPI
+    url: openapi/coworkingview-api-search-api-openapi.yml
+  - type: Documentation
+    url: https://coworkingview.com/en/mcp
+  - type: LLMsTxt
+    url: https://coworkingview.com/llms.txt
+  - type: Authentication
+    url: authentication/coworkingview-api-authentication.yml
+  - type: Conventions
+    url: conventions/coworkingview-api-conventions.yml
+  - type: Idempotency
+    url: conventions/coworkingview-api-conventions.yml
+  - type: ErrorCatalog
+    url: errors/coworkingview-api-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/coworkingview-api-lifecycle.yml
+  - type: Deprecation
+    url: lifecycle/coworkingview-api-lifecycle.yml
+  - type: RateLimits
+    url: rate-limits/coworkingview-api-rate-limits.yml
+  - type: Plans
+    url: plans/coworkingview-api-plans-pricing.yml
+  - type: DataModel
+    url: data-model/coworkingview-api-data-model.yml
+  - type: Sandbox
+    url: sandbox/coworkingview-api-sandbox.yml
+  - type: APIReference
+    url: https://coworkingview.com/openapi.json
+  - type: Support
+    url: https://coworkingview.com/en/contact
 maintainers:
   - FN: CoworkingView API
     email: info@coworkingview.com
@@ -110,6 +497,10 @@ generated:
   confidence: 90
   at: '2026-09-15T12:16:39.547Z'
 common:
+- type: Overlay
+  url: overlays/coworkingview-api-openapi-overlay.yaml
+- type: AgentSkill
+  url: skills/_index.yml
 - type: Website
   url: https://coworkingview.com
 - type: DomainSecurity
