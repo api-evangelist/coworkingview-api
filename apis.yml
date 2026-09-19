@@ -75,6 +75,8 @@ apis:
   humanURL: https://coworkingview.com/en/mcp
   baseURL: https://api.coworkingview.com
   tags:
+  - Config
+  tags_raw:
   - config
   properties:
   - type: OpenAPI
@@ -113,6 +115,8 @@ apis:
   humanURL: https://coworkingview.com/en/mcp
   baseURL: https://api.coworkingview.com
   tags:
+  - Facets
+  tags_raw:
   - facets
   properties:
   - type: OpenAPI
@@ -151,6 +155,8 @@ apis:
   humanURL: https://coworkingview.com/en/mcp
   baseURL: https://api.coworkingview.com
   tags:
+  - Geo
+  tags_raw:
   - geo
   properties:
   - type: OpenAPI
@@ -189,6 +195,8 @@ apis:
   humanURL: https://coworkingview.com/en/mcp
   baseURL: https://api.coworkingview.com
   tags:
+  - Health
+  tags_raw:
   - health
   properties:
   - type: OpenAPI
@@ -227,6 +235,8 @@ apis:
   humanURL: https://coworkingview.com/en/mcp
   baseURL: https://api.coworkingview.com
   tags:
+  - Leads
+  tags_raw:
   - leads
   properties:
   - type: OpenAPI
@@ -265,6 +275,8 @@ apis:
   humanURL: https://coworkingview.com/en/mcp
   baseURL: https://api.coworkingview.com
   tags:
+  - Markets
+  tags_raw:
   - market
   properties:
   - type: OpenAPI
@@ -303,6 +315,8 @@ apis:
   humanURL: https://coworkingview.com/en/mcp
   baseURL: https://api.coworkingview.com
   tags:
+  - Operator
+  tags_raw:
   - operators
   properties:
   - type: OpenAPI
@@ -341,6 +355,8 @@ apis:
   humanURL: https://coworkingview.com/en/mcp
   baseURL: https://api.coworkingview.com
   tags:
+  - Places
+  tags_raw:
   - places
   properties:
   - type: OpenAPI
@@ -379,6 +395,8 @@ apis:
   humanURL: https://coworkingview.com/en/mcp
   baseURL: https://api.coworkingview.com
   tags:
+  - Properties
+  tags_raw:
   - properties
   properties:
   - type: OpenAPI
@@ -417,6 +435,8 @@ apis:
   humanURL: https://coworkingview.com/en/mcp
   baseURL: https://api.coworkingview.com
   tags:
+  - Rankings
+  tags_raw:
   - rankings
   properties:
   - type: OpenAPI
@@ -455,6 +475,8 @@ apis:
   humanURL: https://coworkingview.com/en/mcp
   baseURL: https://api.coworkingview.com
   tags:
+  - Search
+  tags_raw:
   - search
   properties:
   - type: OpenAPI
