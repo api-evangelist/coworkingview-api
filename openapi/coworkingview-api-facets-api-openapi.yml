@@ -1,0 +1,452 @@
+openapi: 3.2.0
+info:
+  title: CoworkingView Facets API
+  version: 1.0.0
+  description: 'Read API for the CoworkingView catalogue plus the lead write path. Within a major version this contract is APPEND-ONLY: fields are added, never removed or retyped, because clients include mobile builds that cannot be recalled. A breaking change means /v2, with /v1 kept alive for at least two app releases.'
+servers:
+- url: https://api.coworkingview.com
+  description: Production
+- url: http://localhost:4000
+  description: Local development
+tags:
+- name: Facets
+paths:
+  /v1/facets:
+    get:
+      operationId: facets
+      summary: Filter options with contextual counts, driving the filter sheet
+      description: Facet values and counts for the current filter context (cities, zones, amenities, workspace types, operators). Use this to discover valid filter values before listing. No API key.
+      tags:
+      - Facets
+      parameters:
+      - name: locale
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - en
+          - de
+          - es
+      - name: country
+        in: query
+        required: false
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 200
+          pattern: ^[a-z0-9-]+$
+      - name: city
+        in: query
+        required: false
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 200
+          pattern: ^[a-z0-9-]+$
+      - name: zone
+        in: query
+        required: false
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 200
+          pattern: ^[a-z0-9-]+$
+      - name: operator
+        in: query
+        required: false
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 200
+          pattern: ^[a-z0-9-]+$
+      - name: pricingOptionType
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - private_office
+          - exclusive_bereich
+          - fix_desk
+          - flex_desk
+          - day_pass
+          - meeting_room
+          - virtual_office
+          - event_space
+          - membership
+      - name: currency
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - EUR
+          - GBP
+          - USD
+          - CHF
+          - VES
+          - AED
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $schema: https://json-schema.org/draft/2020-12/schema
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      facets:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            key:
+                              type: string
+                              enum:
+                              - country
+                              - city
+                              - zone
+                              - operator
+                              - pricingOptionType
+                              - amenities
+                            label:
+                              type: string
+                            values:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  value:
+                                    type: string
+                                    minLength: 1
+                                    maxLength: 200
+                                    pattern: ^[a-z0-9_-]+$
+                                  label:
+                                    type: string
+                                  count:
+                                    type: integer
+                                    minimum: 0
+                                    maximum: 9007199254740991
+                                required:
+                                - value
+                                - label
+                                - count
+                                additionalProperties: false
+                          required:
+                          - key
+                          - label
+                          - values
+                          additionalProperties: false
+                      priceRange:
+                        type: object
+                        properties:
+                          min:
+                            type: object
+                            properties:
+                              amount:
+                                type: number
+                                minimum: 0
+                              currency:
+                                type: string
+                                enum:
+                                - EUR
+                                - GBP
+                                - USD
+                                - CHF
+                                - VES
+                                - AED
+                            required:
+                            - amount
+                            - currency
+                            additionalProperties: false
+                          max:
+                            type: object
+                            properties:
+                              amount:
+                                type: number
+                                minimum: 0
+                              currency:
+                                type: string
+                                enum:
+                                - EUR
+                                - GBP
+                                - USD
+                                - CHF
+                                - VES
+                                - AED
+                            required:
+                            - amount
+                            - currency
+                            additionalProperties: false
+                        required:
+                        - min
+                        - max
+                        additionalProperties: false
+                      capacityRange:
+                        type: object
+                        properties:
+                          min:
+                            type: integer
+                            exclusiveMinimum: 0
+                            maximum: 9007199254740991
+                          max:
+                            type: integer
+                            exclusiveMinimum: 0
+                            maximum: 9007199254740991
+                        required:
+                        - min
+                        - max
+                        additionalProperties: false
+                    required:
+                    - facets
+                    additionalProperties: false
+                  meta:
+                    type: object
+                    properties:
+                      contractVersion:
+                        type: string
+                      pagination:
+                        type: object
+                        properties:
+                          page:
+                            type: integer
+                            exclusiveMinimum: 0
+                            maximum: 9007199254740991
+                          pageSize:
+                            type: integer
+                            exclusiveMinimum: 0
+                            maximum: 9007199254740991
+                          total:
+                            type: integer
+                            minimum: 0
+                            maximum: 9007199254740991
+                          pageCount:
+                            type: integer
+                            minimum: 0
+                            maximum: 9007199254740991
+                        required:
+                        - page
+                        - pageSize
+                        - total
+                        - pageCount
+                        additionalProperties: false
+                      truncated:
+                        type: boolean
+                      seed:
+                        type: integer
+                        minimum: -9007199254740991
+                        maximum: 9007199254740991
+                    required:
+                    - contractVersion
+                    additionalProperties: false
+                required:
+                - data
+                - meta
+                additionalProperties: false
+        '400':
+          description: VALIDATION_FAILED
+          content:
+            application/problem+json:
+              schema:
+                $schema: https://json-schema.org/draft/2020-12/schema
+                type: object
+                properties:
+                  type:
+                    type: string
+                  title:
+                    type: string
+                  status:
+                    type: integer
+                    minimum: 400
+                    maximum: 599
+                  detail:
+                    type: string
+                  code:
+                    type: string
+                    enum:
+                    - VALIDATION_FAILED
+                    - NOT_FOUND
+                    - RATE_LIMITED
+                    - CHALLENGE_FAILED
+                    - UPSTREAM_UNAVAILABLE
+                    - INTERNAL_ERROR
+                    - CLIENT_TOO_OLD
+                    - IDEMPOTENCY_KEY_CONFLICT
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                      required:
+                      - path
+                      - message
+                      additionalProperties: false
+                  traceId:
+                    type: string
+                required:
+                - type
+                - title
+                - status
+                - code
+                additionalProperties: false
+        '429':
+          description: RATE_LIMITED
+          content:
+            application/problem+json:
+              schema:
+                $schema: https://json-schema.org/draft/2020-12/schema
+                type: object
+                properties:
+                  type:
+                    type: string
+                  title:
+                    type: string
+                  status:
+                    type: integer
+                    minimum: 400
+                    maximum: 599
+                  detail:
+                    type: string
+                  code:
+                    type: string
+                    enum:
+                    - VALIDATION_FAILED
+                    - NOT_FOUND
+                    - RATE_LIMITED
+                    - CHALLENGE_FAILED
+                    - UPSTREAM_UNAVAILABLE
+                    - INTERNAL_ERROR
+                    - CLIENT_TOO_OLD
+                    - IDEMPOTENCY_KEY_CONFLICT
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                      required:
+                      - path
+                      - message
+                      additionalProperties: false
+                  traceId:
+                    type: string
+                required:
+                - type
+                - title
+                - status
+                - code
+                additionalProperties: false
+        '500':
+          description: INTERNAL_ERROR
+          content:
+            application/problem+json:
+              schema:
+                $schema: https://json-schema.org/draft/2020-12/schema
+                type: object
+                properties:
+                  type:
+                    type: string
+                  title:
+                    type: string
+                  status:
+                    type: integer
+                    minimum: 400
+                    maximum: 599
+                  detail:
+                    type: string
+                  code:
+                    type: string
+                    enum:
+                    - VALIDATION_FAILED
+                    - NOT_FOUND
+                    - RATE_LIMITED
+                    - CHALLENGE_FAILED
+                    - UPSTREAM_UNAVAILABLE
+                    - INTERNAL_ERROR
+                    - CLIENT_TOO_OLD
+                    - IDEMPOTENCY_KEY_CONFLICT
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                      required:
+                      - path
+                      - message
+                      additionalProperties: false
+                  traceId:
+                    type: string
+                required:
+                - type
+                - title
+                - status
+                - code
+                additionalProperties: false
+        '502':
+          description: UPSTREAM_UNAVAILABLE
+          content:
+            application/problem+json:
+              schema:
+                $schema: https://json-schema.org/draft/2020-12/schema
+                type: object
+                properties:
+                  type:
+                    type: string
+                  title:
+                    type: string
+                  status:
+                    type: integer
+                    minimum: 400
+                    maximum: 599
+                  detail:
+                    type: string
+                  code:
+                    type: string
+                    enum:
+                    - VALIDATION_FAILED
+                    - NOT_FOUND
+                    - RATE_LIMITED
+                    - CHALLENGE_FAILED
+                    - UPSTREAM_UNAVAILABLE
+                    - INTERNAL_ERROR
+                    - CLIENT_TOO_OLD
+                    - IDEMPOTENCY_KEY_CONFLICT
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                      required:
+                      - path
+                      - message
+                      additionalProperties: false
+                  traceId:
+                    type: string
+                required:
+                - type
+                - title
+                - status
+                - code
+                additionalProperties: false
+      x-cache:
+        maxAge: 600
+        staleWhileRevalidate: 3600

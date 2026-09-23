@@ -1,0 +1,416 @@
+openapi: 3.2.0
+info:
+  title: CoworkingView Geo API
+  version: 1.0.0
+  description: 'Read API for the CoworkingView catalogue plus the lead write path. Within a major version this contract is APPEND-ONLY: fields are added, never removed or retyped, because clients include mobile builds that cannot be recalled. A breaking change means /v2, with /v1 kept alive for at least two app releases.'
+servers:
+- url: https://api.coworkingview.com
+  description: Production
+- url: http://localhost:4000
+  description: Local development
+tags:
+- name: Geo
+paths:
+  /v1/geo/bootstrap:
+    get:
+      operationId: geoBootstrap
+      summary: Countries, cities and zones index. Small and long-lived
+      description: 'The full geography index: countries, cities and zones with slugs. Call once and cache; it changes rarely. Use the slugs as filter values on listProperties. No API key.'
+      tags:
+      - Geo
+      parameters:
+      - name: locale
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - en
+          - de
+          - es
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $schema: https://json-schema.org/draft/2020-12/schema
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      countries:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            slug:
+                              type: string
+                              minLength: 1
+                              maxLength: 200
+                              pattern: ^[a-z0-9-]+$
+                            name:
+                              type: string
+                            code:
+                              type: string
+                              minLength: 2
+                              maxLength: 2
+                            propertyCount:
+                              type: integer
+                              minimum: 0
+                              maximum: 9007199254740991
+                          required:
+                          - slug
+                          - name
+                          - code
+                          - propertyCount
+                          additionalProperties: false
+                      cities:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            slug:
+                              type: string
+                              minLength: 1
+                              maxLength: 200
+                              pattern: ^[a-z0-9-]+$
+                            name:
+                              type: string
+                            countryCode:
+                              type: string
+                              minLength: 2
+                              maxLength: 2
+                            propertyCount:
+                              type: integer
+                              minimum: 0
+                              maximum: 9007199254740991
+                            center:
+                              type: object
+                              properties:
+                                lat:
+                                  type: number
+                                lng:
+                                  type: number
+                              required:
+                              - lat
+                              - lng
+                              additionalProperties: false
+                            icon:
+                              type: object
+                              properties:
+                                url:
+                                  type: string
+                                  format: uri
+                                width:
+                                  type: integer
+                                  exclusiveMinimum: 0
+                                  maximum: 9007199254740991
+                                height:
+                                  type: integer
+                                  exclusiveMinimum: 0
+                                  maximum: 9007199254740991
+                                alt:
+                                  type: string
+                                thumbHash:
+                                  type: string
+                              required:
+                              - url
+                              - width
+                              - height
+                              - alt
+                              additionalProperties: false
+                            zones:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  slug:
+                                    type: string
+                                    minLength: 1
+                                    maxLength: 200
+                                    pattern: ^[a-z0-9-]+$
+                                  name:
+                                    type: string
+                                  propertyCount:
+                                    type: integer
+                                    minimum: 0
+                                    maximum: 9007199254740991
+                                required:
+                                - slug
+                                - name
+                                - propertyCount
+                                additionalProperties: false
+                          required:
+                          - slug
+                          - name
+                          - countryCode
+                          - propertyCount
+                          - center
+                          - zones
+                          additionalProperties: false
+                      currencies:
+                        type: object
+                        propertyNames:
+                          type: string
+                        additionalProperties:
+                          type: string
+                          enum:
+                          - EUR
+                          - GBP
+                          - USD
+                          - CHF
+                          - VES
+                          - AED
+                    required:
+                    - countries
+                    - cities
+                    - currencies
+                    additionalProperties: false
+                  meta:
+                    type: object
+                    properties:
+                      contractVersion:
+                        type: string
+                      pagination:
+                        type: object
+                        properties:
+                          page:
+                            type: integer
+                            exclusiveMinimum: 0
+                            maximum: 9007199254740991
+                          pageSize:
+                            type: integer
+                            exclusiveMinimum: 0
+                            maximum: 9007199254740991
+                          total:
+                            type: integer
+                            minimum: 0
+                            maximum: 9007199254740991
+                          pageCount:
+                            type: integer
+                            minimum: 0
+                            maximum: 9007199254740991
+                        required:
+                        - page
+                        - pageSize
+                        - total
+                        - pageCount
+                        additionalProperties: false
+                      truncated:
+                        type: boolean
+                      seed:
+                        type: integer
+                        minimum: -9007199254740991
+                        maximum: 9007199254740991
+                    required:
+                    - contractVersion
+                    additionalProperties: false
+                required:
+                - data
+                - meta
+                additionalProperties: false
+        '400':
+          description: VALIDATION_FAILED
+          content:
+            application/problem+json:
+              schema:
+                $schema: https://json-schema.org/draft/2020-12/schema
+                type: object
+                properties:
+                  type:
+                    type: string
+                  title:
+                    type: string
+                  status:
+                    type: integer
+                    minimum: 400
+                    maximum: 599
+                  detail:
+                    type: string
+                  code:
+                    type: string
+                    enum:
+                    - VALIDATION_FAILED
+                    - NOT_FOUND
+                    - RATE_LIMITED
+                    - CHALLENGE_FAILED
+                    - UPSTREAM_UNAVAILABLE
+                    - INTERNAL_ERROR
+                    - CLIENT_TOO_OLD
+                    - IDEMPOTENCY_KEY_CONFLICT
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                      required:
+                      - path
+                      - message
+                      additionalProperties: false
+                  traceId:
+                    type: string
+                required:
+                - type
+                - title
+                - status
+                - code
+                additionalProperties: false
+        '429':
+          description: RATE_LIMITED
+          content:
+            application/problem+json:
+              schema:
+                $schema: https://json-schema.org/draft/2020-12/schema
+                type: object
+                properties:
+                  type:
+                    type: string
+                  title:
+                    type: string
+                  status:
+                    type: integer
+                    minimum: 400
+                    maximum: 599
+                  detail:
+                    type: string
+                  code:
+                    type: string
+                    enum:
+                    - VALIDATION_FAILED
+                    - NOT_FOUND
+                    - RATE_LIMITED
+                    - CHALLENGE_FAILED
+                    - UPSTREAM_UNAVAILABLE
+                    - INTERNAL_ERROR
+                    - CLIENT_TOO_OLD
+                    - IDEMPOTENCY_KEY_CONFLICT
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                      required:
+                      - path
+                      - message
+                      additionalProperties: false
+                  traceId:
+                    type: string
+                required:
+                - type
+                - title
+                - status
+                - code
+                additionalProperties: false
+        '500':
+          description: INTERNAL_ERROR
+          content:
+            application/problem+json:
+              schema:
+                $schema: https://json-schema.org/draft/2020-12/schema
+                type: object
+                properties:
+                  type:
+                    type: string
+                  title:
+                    type: string
+                  status:
+                    type: integer
+                    minimum: 400
+                    maximum: 599
+                  detail:
+                    type: string
+                  code:
+                    type: string
+                    enum:
+                    - VALIDATION_FAILED
+                    - NOT_FOUND
+                    - RATE_LIMITED
+                    - CHALLENGE_FAILED
+                    - UPSTREAM_UNAVAILABLE
+                    - INTERNAL_ERROR
+                    - CLIENT_TOO_OLD
+                    - IDEMPOTENCY_KEY_CONFLICT
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                      required:
+                      - path
+                      - message
+                      additionalProperties: false
+                  traceId:
+                    type: string
+                required:
+                - type
+                - title
+                - status
+                - code
+                additionalProperties: false
+        '502':
+          description: UPSTREAM_UNAVAILABLE
+          content:
+            application/problem+json:
+              schema:
+                $schema: https://json-schema.org/draft/2020-12/schema
+                type: object
+                properties:
+                  type:
+                    type: string
+                  title:
+                    type: string
+                  status:
+                    type: integer
+                    minimum: 400
+                    maximum: 599
+                  detail:
+                    type: string
+                  code:
+                    type: string
+                    enum:
+                    - VALIDATION_FAILED
+                    - NOT_FOUND
+                    - RATE_LIMITED
+                    - CHALLENGE_FAILED
+                    - UPSTREAM_UNAVAILABLE
+                    - INTERNAL_ERROR
+                    - CLIENT_TOO_OLD
+                    - IDEMPOTENCY_KEY_CONFLICT
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        path:
+                          type: string
+                        message:
+                          type: string
+                      required:
+                      - path
+                      - message
+                      additionalProperties: false
+                  traceId:
+                    type: string
+                required:
+                - type
+                - title
+                - status
+                - code
+                additionalProperties: false
+      x-cache:
+        maxAge: 3600
+        staleWhileRevalidate: 86400

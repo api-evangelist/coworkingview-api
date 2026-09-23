@@ -1,0 +1,51 @@
+{
+  "provider": "coworkingview-api",
+  "sources": [
+    "_original/coworkingview-api-openapi.json"
+  ],
+  "outputs": [
+    "coworkingview-api-config-api-openapi.yml",
+    "coworkingview-api-facets-api-openapi.yml",
+    "coworkingview-api-geo-api-openapi.yml",
+    "coworkingview-api-health-api-openapi.yml",
+    "coworkingview-api-leads-api-openapi.yml",
+    "coworkingview-api-market-api-openapi.yml",
+    "coworkingview-api-operators-api-openapi.yml",
+    "coworkingview-api-places-api-openapi.yml",
+    "coworkingview-api-properties-api-openapi.yml",
+    "coworkingview-api-rankings-api-openapi.yml",
+    "coworkingview-api-search-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "coworkingview-api-openapi.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "coworkingview-api-openapi.json: declared missing tag: config",
+    "coworkingview-api-openapi.json: declared missing tag: facets",
+    "coworkingview-api-openapi.json: declared missing tag: geo",
+    "coworkingview-api-openapi.json: declared missing tag: health",
+    "coworkingview-api-openapi.json: declared missing tag: leads",
+    "coworkingview-api-openapi.json: declared missing tag: market",
+    "coworkingview-api-openapi.json: declared missing tag: operators",
+    "coworkingview-api-openapi.json: declared missing tag: places",
+    "coworkingview-api-openapi.json: declared missing tag: properties",
+    "coworkingview-api-openapi.json: declared missing tag: rankings",
+    "coworkingview-api-openapi.json: declared missing tag: search",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "coworkingview-api-config-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "coworkingview-api-facets-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "coworkingview-api-geo-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "coworkingview-api-health-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "coworkingview-api-leads-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "coworkingview-api-market-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "coworkingview-api-operators-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "coworkingview-api-places-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "coworkingview-api-properties-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "coworkingview-api-rankings-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "coworkingview-api-search-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
+}

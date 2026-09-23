@@ -1,0 +1,29 @@
+# Front Door AI Index — coworkingview-api — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: coworkingview-api
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: coworkingview.com
+  final_host: coworkingview.com
+  ownership: own
+  owner: coworkingview-api
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 6
+  host_score: 6
+  density: 6.36
+  words: 944
+  tiers:
+    agentic: 3
+    core: 1
+    model: 2
+  ambiguous: 1
+  top_terms:
+    MCP: 3
+    AI: 1
+    ChatGPT: 1
+    Claude: 1
+    agent: 1
