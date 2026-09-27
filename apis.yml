@@ -16,12 +16,12 @@ x-enrichment:
 tags:
   - Co-Working
   - Flexible Workspace
-  - Real-Estate
+  - Real Estate
   - Location Services
   - Search
   - Comparison
   - MCP
-  - agent-native
+  - Agent-Native
   - Business
 tags_raw:
   - coworking
@@ -33,6 +33,7 @@ tags_raw:
   - MCP
   - agent-native
   - business
+  - Real-Estate
 apis:
 - name: CoworkingView MCP Server
   image: https://coworkingview.com/og-image.png
@@ -45,12 +46,12 @@ apis:
   tags:
   - Co-Working
   - Flexible Workspace
-  - Real-Estate
+  - Real Estate
   - Location Services
   - Search
   - Comparison
   - MCP
-  - agent-native
+  - Agent-Native
   - Business
   tags_raw:
   - coworking
@@ -62,6 +63,7 @@ apis:
   - MCP
   - agent-native
   - business
+  - Real-Estate
   properties:
   - type: MCPServer
     url: mcp/coworkingview-api-mcp.yml
