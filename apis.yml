@@ -521,6 +521,9 @@ generated:
   confidence: 90
   at: '2026-09-15T12:16:39.547Z'
 common:
+- type: CapabilityMap
+  url: capabilities/coworkingview-api-capability-edges.yml
+  name: CoworkingView API Business Capability Map
 - type: Overlay
   url: overlays/coworkingview-api-openapi-overlay.yaml
 - type: AgentSkill
