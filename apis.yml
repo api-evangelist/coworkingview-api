@@ -521,6 +521,10 @@ generated:
   confidence: 90
   at: '2026-09-15T12:16:39.547Z'
 common:
+- type: Plans
+  url: plans/coworkingview-api-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/coworkingview-api-rate-limits.yml
 - url: https://coworkingview.com/en/insights
   type: Blog
 - type: CapabilityMap
